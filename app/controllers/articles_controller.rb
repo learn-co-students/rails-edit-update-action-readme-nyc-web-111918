@@ -1,9 +1,11 @@
 class ArticlesController < ApplicationController
+  # before_action :find_article, only: [:show,:edit, :update]
   def index
     @articles = Article.all
   end
 
   def show
+    # find_article
     @article = Article.find(params[:id])
   end
 
@@ -20,4 +22,23 @@ class ArticlesController < ApplicationController
   end
 
   # add edit and update methods here
-end
+  def edit
+    # find_article
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    # raise params.inspect
+    # find_article
+    @article = Article.find(params[:id])
+    # byebug
+    @article.update(title: params[:article][:title], description: params[:article][:description])
+    redirect_to article_path(@article)
+  end
+
+  private
+  def find_article
+    @article = Article.find(params[:id])
+  end
+
+end # end of ArticlesController class
